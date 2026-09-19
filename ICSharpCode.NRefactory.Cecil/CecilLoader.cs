@@ -32,6 +32,9 @@ using Mono.Cecil;
 
 namespace ICSharpCode.NRefactory.TypeSystem
 {
+	// Legacy compatibility shim. This implementation is retained only as a provisional bridge
+	// for the old NRefactory/Cecil stack while the project is being migrated to .NET 8/Linux.
+	// It must be replaced by a supported modern implementation before final cutover.
 	using BlobReader = ICSharpCode.NRefactory.TypeSystem.Implementation.BlobReader;
 
 	/// <summary>
@@ -1621,11 +1624,13 @@ namespace ICSharpCode.NRefactory.TypeSystem
 			tp.HasValueTypeConstraint = g.HasNotNullableValueTypeConstraint;
 			tp.HasDefaultConstructorConstraint = g.HasDefaultConstructorConstraint;
 			
-			if (g.HasConstraints) {
-				foreach (TypeReference constraint in g.Constraints) {
-					tp.Constraints.Add(ReadTypeReference(constraint));
+if (g.HasConstraints) {
+					foreach (var constraint in g.Constraints) {
+						if (constraint == null)
+							continue;
+						tp.Constraints.Add(ReadTypeReference(constraint));
+					}
 				}
-			}
 		}
 		#endregion
 		

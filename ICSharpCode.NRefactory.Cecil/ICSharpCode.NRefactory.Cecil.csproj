@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
+    <RuntimeIdentifier>win</RuntimeIdentifier>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
@@ -14,6 +16,7 @@
     <NoWin32Manifest>False</NoWin32Manifest>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
+    <PublicSign>true</PublicSign>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DocumentationFile>$(IntermediateOutputPath)ICSharpCode.NRefactory.Cecil.xml</DocumentationFile>
@@ -27,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>PdbOnly</DebugType>
@@ -36,7 +39,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugGnome|Any CPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>..\bin\DebugGnome</OutputPath>
+    <DefineConstants>DEBUG;SIGNED</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net_4_5_Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,16 +71,17 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;SIGNED</DefineConstants>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'net_4_5_Debug' ">
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;SIGNED</DefineConstants>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>SIGNED</DefineConstants>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
@@ -79,6 +93,7 @@
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'net_4_5_Release' ">
+    <DefineConstants>SIGNED</DefineConstants>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
@@ -86,11 +101,19 @@
     <NuGetVersionCecil Condition="$(NuGetVersionCecil) == ''">0.10.1</NuGetVersionCecil>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Mono.Cecil" Version="$(NuGetVersionCecil)" PrivateAssets="all" />
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/mscorlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <ProjectReference Include="..\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj">
+      <Project>{3B2A5653-EC97-4001-BB9B-D90F1AF2C371}</Project>
+      <Name>ICSharpCode.NRefactory</Name>
+    </ProjectReference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>$(NuGetPackageRoot)mono.cecil/0.10.1/lib/net40/Mono.Cecil.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\ICSharpCode.NRefactory\Properties\GlobalAssemblyInfo.cs">
@@ -100,10 +123,4 @@
     <Compile Include="CecilLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj">
-      <Project>{3B2A5653-EC97-4001-BB9B-D90F1AF2C371}</Project>
-      <Name>ICSharpCode.NRefactory</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

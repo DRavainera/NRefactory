@@ -11,6 +11,7 @@
     <AssemblyName>ICSharpCode.NRefactory.IKVM</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\ICSharpCode.NRefactory.snk</AssemblyOriginatorKeyFile>
+    <PublicSign>true</PublicSign>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-	<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -30,7 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-	<TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+	<TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'net_4_5_Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +54,9 @@
 	<TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/mscorlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>

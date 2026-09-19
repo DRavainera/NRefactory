@@ -10,6 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <PublicSign>true</PublicSign>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <ProductVersion>8.0.30703</ProductVersion>
@@ -41,6 +43,12 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE;FULL_AST;NET_4_0</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DebugGnome' ">
+    <Optimize>False</Optimize>
+    <DefineConstants>DEBUG;TRACE;FULL_AST;NET_4_0</DefineConstants>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>PdbOnly</DebugType>
@@ -79,6 +87,9 @@
     <OutputPath>..\bin\net_4_5_Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/mscorlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />

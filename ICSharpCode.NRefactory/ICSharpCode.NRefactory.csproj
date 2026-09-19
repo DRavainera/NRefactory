@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
+    <RuntimeIdentifier>win</RuntimeIdentifier>
     <ProjectGuid>{3B2A5653-EC97-4001-BB9B-D90F1AF2C371}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,7 +17,7 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <RunCodeAnalysis>False</RunCodeAnalysis>
     <CodeAnalysisRules>-Microsoft.Design#CA1000;-Microsoft.Design#CA1004;-Microsoft.Design#CA1005;-Microsoft.Design#CA1006;-Microsoft.Design#CA1026;-Microsoft.Design#CA1033;-Microsoft.Design#CA1051;-Microsoft.Design#CA1063;-Microsoft.Naming#CA1702;-Microsoft.Naming#CA1704;-Microsoft.Naming#CA1710;-Microsoft.Naming#CA1716;-Microsoft.Naming#CA1720;-Microsoft.Performance#CA1800;-Microsoft.Security#CA2104</CodeAnalysisRules>
-    <SignAssembly>True</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\ICSharpCode.NRefactory.snk</AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
@@ -25,6 +27,8 @@
     <NoWin32Manifest>False</NoWin32Manifest>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DocumentationFile>$(IntermediateOutputPath)ICSharpCode.NRefactory.xml</DocumentationFile>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <PublicSign>true</PublicSign>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,13 +39,18 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>False</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SIGNED</DefineConstants>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <StartAction>Project</StartAction>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DebugGnome' ">
+    <Optimize>False</Optimize>
+    <DefineConstants>TRACE;SIGNED</DefineConstants>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <Optimize>True</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;SIGNED</DefineConstants>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
@@ -79,6 +88,9 @@
     <OutputPath>..\bin\net_4_5_Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/mscorlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />

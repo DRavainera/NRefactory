@@ -16,6 +16,8 @@
     <DocumentationFile>..\bin\$(Configuration)\ICSharpCode.NRefactory.CSharp.Refactoring.xml</DocumentationFile>
     <NoWarn>1591,1587,1570</NoWarn>
     <OutputPath>..\bin\$(Configuration)\</OutputPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <PublicSign>true</PublicSign>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -75,6 +77,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>$(NuGetPackageRoot)microsoft.netframework.referenceassemblies.net472/1.0.3/build/.NETFramework/v4.7.2/mscorlib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
