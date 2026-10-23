@@ -462,7 +462,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 			// but returned ISymbolWriter does not have all what we need therefore some
 			// adaptor will be needed for now we alwayas emit MDB format when generating
 			// debug info
+#if !NET
 			return Builder.DefineDynamicModule (module_name, module_name, false);
+#else
+			return Builder.DefineDynamicModule (module_name);
+#endif
 		}
 
 		public virtual void Emit ()
@@ -788,9 +792,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 			// Add Win32 resources
 			//
 			if (Compiler.Settings.Win32ResourceFile != null) {
+#if !NET
 				Builder.DefineUnmanagedResource (Compiler.Settings.Win32ResourceFile);
+#endif
 			} else {
+#if !NET
 				Builder.DefineVersionInfoResource (vi_product, vi_product_version, vi_company, vi_copyright, vi_trademark);
+#endif
 			}
 
 			if (Compiler.Settings.Win32IconFile != null) {
@@ -819,9 +827,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 								stream = new MemoryStream (File.ReadAllBytes (res.FileName));
 							}
 
+#if !NET
 							module.Builder.DefineManifestResource (res.Name, stream, res.Attributes);
+#endif
 						} else {
+#if !NET
 							Builder.AddResourceFile (res.Name, Path.GetFileName (res.FileName), res.Attributes);
+#endif
 						}
 					}
 				}
@@ -871,7 +883,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 				if (Compiler.Settings.Target == Target.Module) {
 					SaveModule (pekind, machine);
 				} else {
+#if !NET
 					Builder.Save (module.Builder.ScopeName, pekind, machine);
+#else
+					throw new NotSupportedException ();
+#endif
 				}
 			} catch (Exception e) {
 				Report.Error (16, "Could not write to file `" + name + "', cause: " + e.Message);
@@ -923,6 +939,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 				return;
 			}
 
+#if !NET
 			PEFileKinds file_kind;
 
 			switch (Compiler.Settings.Target) {
@@ -937,6 +954,7 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 				file_kind = PEFileKinds.ConsoleApplication;
 				break;
 			}
+#endif
 
 			if (entry_point == null) {
 				string main_class = Compiler.Settings.MainClass;
@@ -964,7 +982,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 				return;
 			}
 
+#if !NET
 			Builder.SetEntryPoint (entry_point.MethodBuilder, file_kind);
+#else
+			throw new NotSupportedException ();
+#endif
 		}
 
 		void Error_ObsoleteSecurityAttribute (Attribute a, string option)

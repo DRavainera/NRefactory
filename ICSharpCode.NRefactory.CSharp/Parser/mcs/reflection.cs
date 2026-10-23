@@ -208,8 +208,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 #if !STATIC
 		public override ModuleBuilder CreateModuleBuilder ()
 		{
-			if (file_name == null)
+			if (file_name == null) {
+#if !NET
 				return Builder.DefineDynamicModule (Name, false);
+#else
+				return Builder.DefineDynamicModule (Name);
+#endif
+			}
 
 			return base.CreateModuleBuilder ();
 		}
@@ -225,9 +230,13 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 			ResolveAssemblySecurityAttributes ();
 			var an = CreateAssemblyName ();
 
+#if !NET
 			Builder = file_name == null ?
 				domain.DefineDynamicAssembly (an, access) :
 				domain.DefineDynamicAssembly (an, access, Dirname (file_name));
+#else
+			Builder = AssemblyBuilder.DefineDynamicAssembly (an, access);
+#endif
 
 			module.Create (this, CreateModuleBuilder ());
 			builder_extra = new AssemblyBuilderMonoSpecific (Builder, Compiler);
@@ -261,7 +270,11 @@ namespace ICSharpCode.NRefactory.MonoCSharp
 				base.SaveModule (pekind, machine);
 			}
 
+#if !NET
 			Builder.Save (file_name, pekind, machine);
+#else
+			throw new NotSupportedException ();
+#endif
 		}
 #endif
 	}

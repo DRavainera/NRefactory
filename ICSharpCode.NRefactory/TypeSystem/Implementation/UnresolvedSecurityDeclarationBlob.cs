@@ -27,7 +27,7 @@ namespace ICSharpCode.NRefactory.TypeSystem.Implementation
 	public sealed class UnresolvedSecurityDeclarationBlob
 	{
 		static readonly ITypeReference securityActionTypeReference = typeof(System.Security.Permissions.SecurityAction).ToTypeReference();
-		static readonly ITypeReference permissionSetAttributeTypeReference = typeof(System.Security.Permissions.PermissionSetAttribute).ToTypeReference();
+		static readonly ITypeReference permissionSetAttributeTypeReference = ReflectionHelper.ParseReflectionName("System.Security.Permissions.PermissionSetAttribute, mscorlib");
 		
 		readonly IConstantValue securityAction;
 		readonly byte[] blob;

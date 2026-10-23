@@ -710,9 +710,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 			if (declarative_security != null) {
 				foreach (var de in declarative_security) {
 #if STATIC
-					MethodBuilder.__AddDeclarativeSecurity (de);
-#else
-					MethodBuilder.AddDeclarativeSecurity (de.Key, de.Value);
+				MethodBuilder.__AddDeclarativeSecurity (de);
+#elif !NET
+				MethodBuilder.AddDeclarativeSecurity (de.Key, de.Value);
 #endif
 				}
 			}
@@ -1800,9 +1800,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 			if (declarative_security != null) {
 				foreach (var de in declarative_security) {
 #if STATIC
-					ConstructorBuilder.__AddDeclarativeSecurity (de);
-#else
-					ConstructorBuilder.AddDeclarativeSecurity (de.Key, de.Value);
+				ConstructorBuilder.__AddDeclarativeSecurity (de);
+#elif !NET
+				ConstructorBuilder.AddDeclarativeSecurity (de.Key, de.Value);
 #endif
 				}
 			}
@@ -1861,8 +1861,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 			if (debug_builder == null)
 				return;
 
+#if !NET
 			var token = ConstructorBuilder.GetToken ();
 			int t = token.Token;
+#else
+			int t = 0;
+#endif
 #if STATIC
 			if (ModuleBuilder.IsPseudoToken (t))
 				t = Module.Builder.ResolvePseudoToken (t);
@@ -2191,8 +2195,12 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 			if (debug_builder == null)
 				return;
 
+#if !NET
 			var token = builder.GetToken ();
 			int t = token.Token;
+#else
+			int t = 0;
+#endif
 #if STATIC
 			if (ModuleBuilder.IsPseudoToken (t))
 				t = member.Module.Builder.ResolvePseudoToken (t);
@@ -2453,9 +2461,9 @@ namespace ICSharpCode.NRefactory.MonoCSharp {
 			if (declarative_security != null) {
 				foreach (var de in declarative_security) {
 #if STATIC
-					method_data.MethodBuilder.__AddDeclarativeSecurity (de);
-#else
-					method_data.MethodBuilder.AddDeclarativeSecurity (de.Key, de.Value);
+				method_data.MethodBuilder.__AddDeclarativeSecurity (de);
+#elif !NET
+				method_data.MethodBuilder.AddDeclarativeSecurity (de.Key, de.Value);
 #endif
 				}
 			}
